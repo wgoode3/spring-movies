@@ -8,32 +8,27 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 @Entity
-@Table(name="movies")
-public class Movie {
-	
+@Table(name="actresses")
+public class Actor {
+
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Size(min = 2, message="Title must be 2 characters or longer")
-	private String title;
-	@NotNull(message="Release year is required")
-	@Min(value=1900, message="Release year must be 1900 or later")
-	private Integer year;
+	
+	@Size(min = 2, message = "Name must be 2 characters or longer")
+	private String name;
+	
 	private Date createdAt;
 	private Date updatedAt;
 	
-	public Movie() {
+	public Actor() {
 	}
 	
-	public Movie(String title, Integer year) {
-		this.title = title;
-		this.year = year;
+	public Actor(String name) {
+		this.name = name;
 		this.createdAt = new Date();
 		this.updatedAt = new Date();
 	}
@@ -46,20 +41,12 @@ public class Movie {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public Integer getYear() {
-		return year;
-	}
-
-	public void setYear(Integer year) {
-		this.year = year;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Date getCreatedAt() {
@@ -80,6 +67,7 @@ public class Movie {
 	
 	@PrePersist
     protected void onCreate(){
+		this.setUpdatedAt(new Date());
 		this.setCreatedAt(new Date());
     }
 

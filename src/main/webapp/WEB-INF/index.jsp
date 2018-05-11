@@ -33,6 +33,24 @@
 			<p>${movie.title} (${movie.year})</p>
 		</c:forEach>
 	</fieldset>
+	
+	<fieldset>
+		<legend>Add an Actor or Actress</legend>
+		<form:form method="POST" action="/actors" modelAttribute="actress">
+		    <form:label path="name">Name
+		    <form:errors path="name"/>
+		    <form:input path="name"/></form:label>
+		    
+		    <input type="submit" value="Submit"/>
+		</form:form>
+	</fieldset>
+	
+	<fieldset>
+		<legend>All Actresses and Actors</legend>
+		<c:forEach items="${actresses}" var="actor">
+			<p><a href="/actor/${actor.id}">${actor.name}</a></p>
+		</c:forEach>
+	</fieldset>
 
 </body>
 </html>
