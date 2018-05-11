@@ -31,6 +31,13 @@
 		<legend>All Movies</legend>
 		<c:forEach items="${movies}" var="movie">
 			<p>${movie.title} (${movie.year})</p>
+			<p>Cast:</p>
+			<ul>
+			<c:forEach items="${movie.actresses}" var="actor">
+				<li>${actor.name}</li>
+			</c:forEach>
+			</ul>
+			<hr>
 		</c:forEach>
 	</fieldset>
 	
@@ -50,6 +57,27 @@
 		<c:forEach items="${actresses}" var="actor">
 			<p><a href="/actor/${actor.id}">${actor.name}</a></p>
 		</c:forEach>
+	</fieldset>
+	
+	<fieldset>
+		<legend>Add an Actor or Actress to a Movie</legend>
+		<form action="/cast" method="post">
+			<p>Actors and Actresses:
+				<select name="actor_id">
+					<c:forEach items="${actresses}" var="actor">
+						<option value="${actor.id}">${actor.name}</option>
+					</c:forEach>
+				</select>
+			</p>
+			<p>Movies:
+				<select name="movie_id">
+					<c:forEach items="${movies}" var="movie">
+						<option value="${movie.id}">${movie.title}</option>
+					</c:forEach>
+				</select>
+			</p>
+			<button type="submit">Submit</button>
+		</form>
 	</fieldset>
 
 </body>

@@ -1,5 +1,8 @@
 package com.hygogg.movies.controllers;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hygogg.movies.models.Actor;
 import com.hygogg.movies.models.Movie;
@@ -59,4 +63,16 @@ private ActorService actorService;
 		actorService.delete(id);
 		return "redirect:/";
 	}
+	
+	@PostMapping("cast")
+	public String cast(@RequestParam Long actor_id, @RequestParam Long movie_id) {
+		Movie movie = movieService.findById(movie_id);
+		Actor actor = actorService.findById(actor_id);
+		List<Actor> actresses = movie.getActresses();
+		actresses.add(actor);
+		movie.setActresses(actresses);
+		movieService.update(movie);
+		return "redirect:/";
+	}
+	
 }

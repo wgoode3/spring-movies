@@ -1,10 +1,15 @@
 package com.hygogg.movies.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -27,7 +32,22 @@ public class Movie {
 	private Integer year;
 	private Date createdAt;
 	private Date updatedAt;
+	@ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "casts", 
+        joinColumns = @JoinColumn(name = "movie_id"), 
+        inverseJoinColumns = @JoinColumn(name = "actor_id")
+    )
+    private List<Actor> actresses;
 	
+	public List<Actor> getActresses() {
+		return actresses;
+	}
+
+	public void setActresses(List<Actor> actresses) {
+		this.actresses = actresses;
+	}
+
 	public Movie() {
 	}
 	

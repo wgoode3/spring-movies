@@ -24,4 +24,12 @@ public class MovieService {
 		return (ArrayList<Movie>) movieRepository.findAll();
 	}
 
+	public Movie findById(Long id) {
+		return (Movie) movieRepository.findById(id);
+	}
+	
+	public Movie update(Movie movie) {
+		return movieRepository.save(movie);
+	}
+	
 }
